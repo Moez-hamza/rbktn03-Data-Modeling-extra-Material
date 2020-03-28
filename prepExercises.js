@@ -1,4 +1,4 @@
-// /\/\/\/\/\/\/\/\/\/\ Exercises /\/\/\/\/\/\/\/\/\/\
+ // /\/\/\/\/\/\/\/\/\/\ Exercises /\/\/\/\/\/\/\/\/\/\
 
 // ~~~~~~~~~~~~~~~~~~~~~~ Basic Requirments ~~~~~~~~~~~~~~~~~~~~~~
 
@@ -25,11 +25,45 @@
 //  Structure and Interpretation of Computer Programs (Gerald Jay Sussman, Hal Abelson)
 //  NOTE: Did you account for the possibility of two authors? If not, update your model to handle multiple authors.
 //  Three other books (see this list for ideas)
-
+var book1 = {
+    title: 'Harry Potter and the Sorcerer\'s Stone',
+    author: 'J.K.Rowling',
+    msrp: '8 $',
+    genre: 'fantasy',
+    numberOfPages:  '223',
+    description: 'A young wizard at school of socery'
+};
+var book2 = {
+    title: 'Romeo and Juliet',
+    author: 'William Shakespeare',
+     msrp: '6 $',
+    genre: 'Romance',
+    numberOfPages:  '480',
+    description: 'Love story'
+};
+var book3 = {
+    title: 'Structure and Interpretation of Computer Programs',
+    author: 'Gerald Jay Sussman,Hal Abelson',
+    msrp: '99,99 $',
+    genre: 'Learnin',
+    numberOfPages:  '657',
+    description: 'Fundamental principles of computer programming'
+};
 // 3.You may have been rewriting the same type of object over and over. We need to stay DRY (Do Not Repeat). Write a function makeBook that takes as arguments different attributes of a book and returns an object representing that book that has the proper structure (we call this a factory function).
-
+function makeBook(title, author, msrp, genre, numberOfPages, description){
+    return {
+        title: title,
+        author: author,
+        msrp: msrp,
+        genre: genre,
+        numberOfPages: numberOfPages,
+        description: description
+    };
+}
 // 4.Look at one of your book objects in the console. This is the object inspector. The object inspector is nice to have, but it will be easier to have a function to display the more important information easily. Write a function called displayBook that takes a book as an argument, and returns the important information in a more readable way, for example:
-
+function displayBook(book) {
+   return book.title + ', by ' + book.author + ' --' + book.genre + ', ' + book.msrp;
+}
 // var sorcerersStone = { /* ... */ }
 //  function displayBook(book) {
 //        // ...
@@ -39,13 +73,17 @@
 // The output string above is only an example. What information is most important to you? How can you make that information easier to read for people?
 
 // 5.Create an array called books that holds all of the books that you created above.
-
+var books =[book1,book2,book3]
 // 6.Your function displayBook can be used to display a single book as a string. Now, write a function displayBooks that, given an array of books, returns a single string consisting of all of the books. Use the function displayBook to format all of the books. Each book should be numbered and separated with a newline (we also call this a line break) character so that each book is shown on a separate line in the console. The newline character is specified with a special escaped character in a string:
 
 //  // Enter the below line into a console 'Hello /n World!'; // the 'backslash n' character is a newline
-//  function displayBooks(books) {
-//        // ...
-//  }
+  function displayBooks(books) {
+        var display=''
+        for (var i=0;i<books.length;i++){
+            display+=displayBook(books[i])+'\n'
+        }
+        return display
+}
 //  displayBooks(books);
 //  // => '1. Harry Potter and the Sorcerer's Stone... /n 2. Snow Crash, ...'
 
@@ -59,6 +97,23 @@
 //  'Harry Potter'.indexOf('dog');  // => -1
 //  A good starting point would be to write a function isMatch that accepts two arguments – the query and a single book –
 //  and returns true if the book is a match, and false otherwise.
+function searchBooks (books,query){
+    for (var i=0;i<books.length;i++){
+        if (isMatch(books[i],query)===true){
+            return books[i]
+        }
+}
+     return 'Book not found'
+}
+function isMatch (book,query) {
+    for (var key in book){
+        if (query===book.key || query.toLowerCase()===book.key.toLowerCase()||query===book['key'].substr(0,query.length)||query.toLowerCase()===book['key'].substr(0,query.length).toLowerCase()){
+        return true 
+        } else {
+        return false 
+        }
+    }
+}
 
 // 8.Write a function removeBook that, given a book's title and an array of books, returns a new array of books that does not contain the book with the provided title.
 
